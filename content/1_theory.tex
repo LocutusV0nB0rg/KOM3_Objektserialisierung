@@ -2,9 +2,9 @@
 \chapter{Theoretische Grundlagen}
 \section{Begriffsdefinition und Anwendung}
 
-Der Begriff "Objektserialisierung" beschreibt in der Informatik den Prozess, der Datenstrukturen in eine Reihe an Bytes übersetzt. Dies ist nützlich, um Objekte in eine Datenbank oder in eine Datei zu persistieren. Außerdem können Objekte so über ein Netzwerk übertragen werden. \cite{SerialisationIntroduction}
+Der Begriff "Objektserialisierung" beschreibt in der Informatik den Prozess, der Datenstrukturen in eine Reihe an Bytes übersetzt. Dies ist nützlich, um Objekte in eine Datenbank oder in eine Datei zu persistieren. Außerdem können Objekte so über ein Netzwerk übertragen werden, was eine der Hauptanwendungen ist. \cite{SerialisationIntroduction}
 
-Das Gegenstück, also Objekte aus einem Datenstream wieder aufzubauen, nennt sich Deserialisierung.
+Das Gegenstück, also Objekte aus einem Datenstrom wieder aufzubauen, nennt sich Deserialisierung.
 
 \section{Verfahren zur Serialisierung}
 
@@ -22,17 +22,17 @@ Neben der Auswahl eines geeigneten Protokolls, kann auch die Anwendung zusätzli
 
 \section{Umgang mit referenzierten Daten}
 
-Daten, die über ein Netzwerk empfangen werden, beziehen sich oft auf Daten, die bereits in der Vergangenheit übertragen wurden, oder die bereits gesendet wurden. Es gibt zwei Herangehensweisen, die unabhängig von der Serialisierungsart möglich sind: Einbettung von Datenstrukturen oder Referenzierung über eindeutige Kennzeichnungen.
+Daten, die über ein Netzwerk empfangen werden, beziehen sich oft auf Daten, die bereits in der Vergangenheit übertragen wurden, oder die noch gesendet werden. Es gibt zwei Herangehensweisen, die unabhängig von der Serialisierungsart möglich sind: Einbettung von Datenstrukturen oder Referenzierung über eindeutige Kennzeichnungen.
 
-Beim Einbetten von Datenstrukturen werden die zu referenzierenden Daten direkt mit übertragen. Das bedeutet, dass insgesamt möglichst alle relevanten Daten gemeinsam übertragen werden. Dies hat den Vorteil, dass kein Management und keine dauerhafte Speicherung der übertragenden Daten nötig ist. Die Daten können direkt und vollständig als Block übertragen und verarbeitet werden. Der Nachteil ist, dass so automatisch größere Datenpakete übertragen werden müssen. Dies dauert also insgesamt länger und man muss mit der Verarbeitung warten, bis alle Daten übertragen sind.
+Beim Einbetten von Datenstrukturen werden die zu referenzierenden Daten direkt mit übertragen. Das bedeutet, dass insgesamt möglichst alle relevanten Daten gemeinsam übertragen werden. Dies hat den Vorteil, dass keine dauerhafte Speicherung der übertragenden Daten nötig ist. Die Daten können direkt und vollständig als Block übertragen und verarbeitet werden. Der Nachteil ist, dass so automatisch größere Datenpakete übertragen werden müssen. Dies dauert also insgesamt länger und man muss mit der Verarbeitung warten, bis alle Daten übertragen sind.
 
-Wenn die Daten untereinander referenziert werden, so geschieht dies durch einen eindeutigen Kennzeichner. Oft werden hierfür einfache Zahlenwerte benutzt, aber auch die Verwendung von UUIDs (Universally Unique Identifiers) ist sehr geläufig. Diese Werte sind entweder in ihrem Gültigkeitsbereich oder sogar ganz allgemein ein eindeutiger Kennzeichner für eine Datenstruktur. Wenn man nun für ein Attribut einer Datenstruktur diesen Wert einträgt, so kann der Empfänger die Datenstruktur die zu diesem Wert gehörende Datenstruktur verwenden. Diese wird entweder angefordert oder wurde in der Vergangenheit bereits übertragen.
+Wenn die Daten untereinander referenziert werden, so geschieht dies durch einen eindeutigen Kennzeichner. Oft werden hierfür einfache Zahlenwerte benutzt, aber auch die Verwendung von UUIDs (Universally Unique Identifiers) ist sehr geläufig. Diese Werte sind entweder in ihrem Gültigkeitsbereich oder sogar ganz allgemein ein eindeutiger Kennzeichner für eine Datenstruktur. Wenn man nun für ein Attribut einer Datenstruktur diesen Wert einträgt, so kann der Empfänger die zu diesem Wert gehörende Datenstruktur separat akquirieren. Diese wird dann entweder angefordert oder wurde in der Vergangenheit bereits übertragen und wird aus dem Speicher heraus verwendet.
 
 \section{Kompression}
 
-Um die Menge der zu übertragenden Daten zu reduzieren, also um den Bandbreitenbedarf zu verringern, werden Daten vor dem Übertragen in der Regel komprimiert. Es gibt hierzu allgemeine Verfahren wie GZIP, allerdings auch spezielle Formate wie JPG und PNG, die Bilddaten komprimieren. Je nach Datenart sind also unterschiedliche Verfahren empfehlenswert. Besonders Bilddaten, die viel Speicher einnehmen, sollten effizient komprimiert werden, um die Netzwerklast so gering wie möglich zu halten.
+Um die Menge der zu übertragenden Daten zu reduzieren, also um den Bandbreitenbedarf zu verringern, werden Daten vor dem Übertragen oft komprimiert. Es gibt hierzu allgemeine Verfahren wie GZIP, allerdings auch spezielle Formate wie JPG und PNG, die Bilddaten komprimieren. Je nach Datenart sind also unterschiedliche Verfahren empfehlenswert. Besonders Bilddaten, die viel Speicher einnehmen, sollten effizient komprimiert werden, um die Netzwerklast so gering wie möglich zu halten.
 
-Verfahren wie Protobuf erlauben es, die Daten direkt komprimiert zu übertragen, ohne dass auf der Empfängerseite eine umständliche Dekomprimierung nötig wird. Neben Protobuf gibt es weitere Technologien wie Thrift oder Avro, die ähnliche Vorteile bieten und in verteilten Systemen und bei der Kommunikation zwischen Microservices zur Anwendung kommen. Diese Technologien sind besonders für die Anwendung in "'Park Chase"' interessant.
+Verfahren wie Protobuf erlauben es, die Daten direkt komprimiert zu übertragen, ohne dass auf der Empfängerseite eine umständliche Dekomprimierung nötig wird. Neben Protobuf gibt es weitere Technologien wie Thrift oder Avro, die ähnliche Vorteile bieten und in verteilten Systemen und bei der Kommunikation zwischen Microservices zur Anwendung kommen. Diese Technologien sind besonders für die Verwendung in "'Park Chase"' interessant.
 
 Es gibt mehrere Techniken, die zur Kompression verwendet werden können. Neben klassischen Verfahren, die oben erwähnt wurden, ist es bei vielen Daten sinnvoll sich über die Notwendigkeit der Übertragung Gedanken zu machen. Besonders in Software, in der Latenz eine Rolle spielt, ist die Reduktion der zu übertragenden Datenmenge ein wichtiger Beitrag zur Optimierung.
 
