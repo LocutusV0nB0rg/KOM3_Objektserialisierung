@@ -23,7 +23,7 @@ Der Ordner \verb|generated-sources| wird zunächst leer gelassen. Dort landen di
 
 \begin{quote}
 	\centering
-	protoc -I="\$(ProjectDir)messages" --csharp\_out="\$(ProjectDir)generated-sources" "\$(ProjectDir)messages\*.proto"
+	protoc -I=\verb|"|\$(ProjectDir)messages\verb|"| --csharp\_out=\verb|"|\$(ProjectDir)generated-sources\verb|"| \verb|"|\$(ProjectDir)messages\*.proto\verb|"|
 \end{quote}
 
 \begin{figure}[!h]
@@ -39,7 +39,7 @@ Nach dem Erstellen einer Muster-Datei zur Datenübertragung die einige Beispielf
 
 Diese Abhängigkeiten werden im Client-Projekt von Into The Sky eingefügt. Der Zielordner ist \verb|Assets/Plugins|. Dorthin werden die insgesamt drei DLL's Kopiert.
 
-Der Proof-of-Concept wird durch das Erstellen eines neuen Scripts abgeschlossen. Dort kann nun der Serialiser benutzt werden. Auch die Klassen, die durch den Protobuf-Compiler erstellt wurden, sind verfügbar und können zur Serialisierung der Daten benutzt werden. Dies ist im aktuellen Projektstand in einer eigenen Szene "SerializationTestScene" im "SerializationSanityChecker"-Skript testweise realisiert. 
+Der Proof-of-Concept wird durch das Erstellen eines neuen Scripts abgeschlossen. Dort kann nun der Serialiser benutzt werden. Auch die Klassen, die durch den Protobuf-Compiler erstellt wurden, sind verfügbar und können zur Serialisierung der Daten benutzt werden. Dies ist im aktuellen Projektstand in einer eigenen Szene \verb|"|SerializationTestScene\verb|"| im \verb|"|Serialization-SanityChecker\verb|"|-Skript testweise realisiert. 
 
 
 \subsection{Tests}
@@ -55,8 +55,7 @@ Um die Serialisierung zu testen, habe ich ein zweites Projekt der Solution hinzu
 
 \section{Park Chase}
 
-Für Park Chase habe ich mich für einen einfachen JSON-Serialiser entschieden. Übertragungsgeschwindigkeit und Latenz
- sind aufgrund des Spielkonzepts von Park Chase weniger kritisch . Außerdem wird das Spiel auf verschiedensten mobilen Endgeräten gespielt werden. Um dort vergleichsweise einfach das Spiel zu testen ist es wichtig lesbare Formate zu benutzen. In diesem Fall habe ich mich für JSON aufgrund seiner einfachen Struktur und guten Unterstützung durch Unity entschieden.
+Für Park Chase habe ich mich für einen einfachen JSON-Serialiser entschieden. Übertragungsgeschwindigkeit und Latenz sind aufgrund des Spielkonzepts von Park Chase weniger kritisch. Außerdem wird das Spiel auf verschiedensten mobilen Endgeräten gespielt werden. Um dort vergleichsweise einfach das Spiel zu testen ist es wichtig, lesbare Formate zu benutzen. In diesem Fall habe ich mich für JSON aufgrund seiner einfachen Struktur und direkten Unterstützung durch Unity entschieden.
 
 \subsection{Entwicklung der Serialisierungs-Klasse}
 
